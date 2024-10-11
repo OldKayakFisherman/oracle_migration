@@ -1,0 +1,33 @@
+def get_{{table}}_records():
+
+    result = []
+
+    conn: OracleConnection = get_oracle_connection()
+
+    sql = """
+        SELECT 
+        {% for column in columns %}
+        {column.name},
+        {% endfor %}
+        FROM {{schema}}.{{table}};
+    """
+    cur = conn.cursor()
+    cur.execute(sql, params)
+    records =  cur.fetchall()
+
+    #read the lobs
+    for record in records:
+        results.append({
+            "id": record[0],
+            {% for column in columns %}
+                "{{column.name}}": {{column.transform.start}}record[{{loop.counter -1}}]{{column.transform.end}},
+            {% endfor %}
+        })
+
+    cur.close()
+    conn.close()
+
+    return results
+
+
+
