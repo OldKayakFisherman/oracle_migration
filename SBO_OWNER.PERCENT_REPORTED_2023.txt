@@ -1,0 +1,7 @@
+MAILID       NOT NULL VARCHAR2(10) 
+SURVEY_YEAR  NOT NULL VARCHAR2(4)  
+O1_PCT_OWNED          NUMBER       
+O2_PCT_OWNED          NUMBER       
+O3_PCT_OWNED          NUMBER       
+O4_PCT_OWNED          NUMBER       
+LOADED                VARCHAR2(1)  
