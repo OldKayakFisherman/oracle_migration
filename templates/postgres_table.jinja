@@ -1,0 +1,6 @@
+CREATE TABLE {{table}}
+(
+    {% for column in columns %}
+        {column.name} {column.datatype} {column.nullable},
+    {% endfor %}
+);
