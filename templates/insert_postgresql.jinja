@@ -1,0 +1,12 @@
+INSERT INTO {{table}}
+(
+    {% for column in columns %}
+        {column.name},
+    {% endfor %}
+)
+VALUES
+(
+    {% for column in columns %}
+        {column.value},
+    {% endfor %}
+)
