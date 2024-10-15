@@ -5,6 +5,9 @@ class DefinitionEntryResult:
         self.__column_name: str = None
         self.__nullable:bool = True
         self.__data_type: str = None
+        self.__transform_start = None
+        self.__transform_end = None 
+
         self.parse()
 
     @property
@@ -19,12 +22,33 @@ class DefinitionEntryResult:
     def data_type(self) -> str:
         return self.__data_type
 
+    @property
+    def transform_start(self) -> str:
+        return self.__transform_start
+    
+    @property
+    def transform_end(self) -> str:
+        return self.__transform_end
+
+
     def parse(self):
         
         self.__column_name = self.__line_entry.split(" ")[0]
         self.__nullable = (self.__line_entry.find("NOT NULL") == -1)
         self.__data_type = self.translate_data_type(self.__line_entry)    
 
+
+    def translate_transform_start(self, value: str):
+
+        result = "str("
+
+        if value.lower().find("number") > -1:
+            result = "int("
+        
+        if value.lower().find("date") > -1:
+            result = "datetime"
+
+        return result
 
 
     def translate_data_type(self, value: str):

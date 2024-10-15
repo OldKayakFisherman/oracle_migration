@@ -20,7 +20,7 @@ def get_{{table}}_records():
         results.append({
             "id": record[0],
             {% for column in columns %}
-                "{{column.name}}": {{column.transform.start}}record[{{loop.counter -1}}]{{column.transform.end}},
+                "{{column.name}}": {{column.transform_start}}record[{{loop.counter -1}}]{{column.transform_end}},
             {% endfor %}
         })
 

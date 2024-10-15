@@ -1,1 +1,30 @@
-#TODO
+from typing import Dict, List
+
+def add_{{table}}_records(records: List[Dict]):
+
+    prms = []
+
+    for record in records:
+        prms.append((
+         {% for column in columns %}
+            record['{{column.name}}'],
+         {% endfor %}
+        ))
+    with get_pg_connection() as pgconn:
+        cur = pgconn.cursor()
+
+        sql = """
+            INSERT INTO {{table}}
+            (
+                {% for column in columns %}
+                    {{column.name}},
+                {% endfor %}
+            )
+            VALUES (
+                {% for column in columns %}
+                    {{column.value}},
+                {% endfor %}
+            )
+        """
+
+        cur.executemany(sql, prms)
